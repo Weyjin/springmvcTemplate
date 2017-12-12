@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 启用spring mvc 注解 -->
+    <!-- 使用了<context:component-scan/>之后
+         可以不用
+    <context:annotation-config></context:annotation-config>
+    -->
+    <context:component-scan base-package="org.springmvc.controller"/>
+    <!--启用注解驱动-->
+    <mvc:annotation-driven>
+    </mvc:annotation-driven>
+    <!--使用默认的servlet来响应静态文件-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--上传文件的大小为10MB-->
+        <property name="maxUploadSize">
+            <value>10485760</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>utf-8</value>
+        </property>
+    </bean>
+
+
+</beans>

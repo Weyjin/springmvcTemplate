@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.springmvc.dao.UserDao" >
+
+  <resultMap id="baseResult" type="org.springmvc.model.User" >
+    <id column="Id" property="Id" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column">
+    password,status,username,createDate
+  </sql>
+
+  <select id="getUsers" resultMap="baseResult">
+    SELECT * FROM   sys_user
+  </select>
+
+  <select id="getUserById" parameterType="Integer" resultMap="baseResult">
+    select * from sys_user where id=#{id}
+  </select>
+
+  <delete id="deleteUserById" parameterType="Integer">
+    select * from  sys_user where username=#{name}
+  </delete>
+
+  <select id="getPermissionList" parameterType="java.lang.String" resultType="java.lang.String">
+    select p.url from ((sys_user as u LEFT JOIN sys_user_role as ur on ur.userId=u.id) LEFT JOIN sys_role
+             as  r on r.id=ur.roleId) LEFT JOIN sys_permission as p on p.roleId=r.id where username=#{username}
+  </select>
+
+  <select id="getUserByName" resultMap="baseResult" parameterType="java.lang.String">
+      SELECT <include refid="Base_Column"></include> FROM sys_user WHERE username=#{username}
+  </select>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://mybatis.org/schema/mybatis-spring
+        http://mybatis.org/schema/mybatis-spring.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <mybatis:scan base-package="org.springmvc.dao"></mybatis:scan>
+    <context:property-override location="/WEB-INF/db.properties"></context:property-override>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource">
+        <property name="mapperLocations" value="classpath:org/springmvc/mapper/*.xml"></property>
+    </bean>
+    <!--扫描org.springmvc包下的java文件，有spring的相关注解的类，则把这些类注册为spring的bean-->
+    <context:component-scan base-package="org.springmvc"></context:component-scan>
+
+
+
+</beans>
