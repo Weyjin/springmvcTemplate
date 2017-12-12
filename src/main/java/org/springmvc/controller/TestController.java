@@ -45,10 +45,8 @@ public class TestController {
         return view;
     }
 
-
     public ModelAndView test3(){
         ModelAndView view=new ModelAndView();
-        view.setViewName("test/list");
         return view;
     }
 
