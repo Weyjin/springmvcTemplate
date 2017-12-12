@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.springmvc.dao.UserRoleDao" >
+
+  <resultMap id="baseResult" type="org.springmvc.model.Role" >
+    <id column="Id" property="Id" jdbcType="INTEGER" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column">
+    roleName,describe,createDate
+  </sql>
+
+  <select id="getUserRolesByUserId" resultMap="baseResult" parameterType="java.lang.String">
+    select * from sys_user_role where userId=#{userId}
+  </select>
+
+</mapper>
