@@ -42,10 +42,11 @@ public class TestController {
     public ModelAndView test2(){
         ModelAndView view=new ModelAndView();
         view.setViewName("test/list");
+        ModelAndView s=test3("sdfdf","","");
         return view;
     }
 
-    public ModelAndView test3(){
+    public ModelAndView test3(String... strings){
         ModelAndView view=new ModelAndView();
         return view;
     }
